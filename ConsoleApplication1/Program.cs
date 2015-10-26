@@ -6,24 +6,18 @@ using CacheEnumerable;
 
 namespace ConsoleApplication1
 {
-    internal sealed class Program
+    internal static class Program
     {
         static void Main()
         {
+            Console.WriteLine("Print Fibonacci odd and even");
             FibonacciSequence().PrintOddEven();
-            //TestCacheEnumerable();
-            //TestPartition(Enumerable.Range(0,999));
-            //TestGetNumbers();
-        }
 
-        private static void TestGetNumbers()
-        {
-            const string s1 = "1,2,3,4,5,6,7,8,9,10";
-            const string s2 = "1,2,3,4,5,6,7,8,9,10,";
+            Console.WriteLine("\nPrint Fibonacci odd and even with cache");
+            FibonacciSequence().AsCacheEnumerable().PrintOddEven();
 
-            foreach (var i in BadPractice.GetNumbers(s1))
-                Console.WriteLine(i);
-            Console.WriteLine();
+            Console.WriteLine("\nTest CacheEnumerable");
+            TestCacheEnumerable();
         }
 
         private static void TestCacheEnumerable()
@@ -41,10 +35,10 @@ namespace ConsoleApplication1
             seq = seq.AsCacheEnumerable();
 
             // enumerate twice
-            Console.WriteLine("first time cache with cache");
+            Console.WriteLine("first time with cache");
             PrintSeq(seq);
 
-            Console.WriteLine("second time cache with cache");
+            Console.WriteLine("second time with cache");
             PrintSeq(seq);
 
             ((CacheEnumerable<int>)seq).InvalidateCache();
@@ -62,17 +56,26 @@ namespace ConsoleApplication1
             Console.WriteLine();
         }
 
-
-        private static void TestPartition(IEnumerable<int> seq, int partitionSize = 10)
+        private static void PrintOddEven(this IEnumerable<int> seq)
         {
-            foreach (var group in seq.BadPartition(partitionSize).ToArray())
-            {
-                foreach (var i in group)
-                    Console.Write(i + ",");
-                Console.WriteLine();
-            }
+            seq.PrintOdd();
+            seq.PrintEven();
+        }
+        private static void PrintOdd(this IEnumerable<int> seq)
+        {
+            Console.WriteLine("Odd items");
+            foreach (var i in seq.Where(i => i % 2 == 1))
+                Console.Write(i + ", ");
+            Console.WriteLine();
         }
 
+        private static void PrintEven(this IEnumerable<int> seq)
+        {
+            Console.WriteLine("Even items");
+            foreach (var i in seq.Where(i => i % 2 == 0))
+                Console.Write(i + ", ");
+            Console.WriteLine();
+        }
 
         private static IEnumerable<int> FibonacciSequence()
         {
@@ -83,7 +86,7 @@ namespace ConsoleApplication1
             var i2 = 1;
             while (true)
             {
-                Thread.Sleep(400);
+                Thread.Sleep(100);
                 var i3 = i1 + i2;
                 if (i3 < i2)
                     break;

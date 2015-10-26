@@ -13,13 +13,13 @@ namespace CacheEnumerable
                 : new CacheEnumerable<T>(sequence);
         }
     }
-    public class CacheEnumerable<T> : IEnumerable<T>
+    internal class CacheEnumerable<T> : IEnumerable<T>
     {
         private readonly IEnumerable<T> _source;
         private IEnumerator<T> _sourceEnumerator;
         private List<T> _cache;
         private readonly object _lock = new object();
-        public CacheEnumerable(IEnumerable<T> source)
+        internal CacheEnumerable(IEnumerable<T> source)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
@@ -48,7 +48,7 @@ namespace CacheEnumerable
 
         public int CachedItems
         {
-            get { return _cache == null ? 0 : _cache.Count; } 
+            get { return _cache == null ? 0 : _cache.Count; }
         }
 
         private class CacheEnumerator : IEnumerator<T>

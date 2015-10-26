@@ -41,15 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadPractice.cs" />
-    <Compile Include="Condition.cs" />
-    <Compile Include="EvenBetterCode.cs" />
     <Compile Include="CacheEnumerable.cs" />
-    <Compile Include="GoodPractice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BetterCode.cs" />
-    <Compile Include="RealCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
