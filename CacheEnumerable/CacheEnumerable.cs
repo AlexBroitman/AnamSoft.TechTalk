@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CacheEnumerable
 {
@@ -11,6 +12,19 @@ namespace CacheEnumerable
             return sequence is IList<T> || sequence is ICollection<T> || sequence is CacheEnumerable<T> || sequence is Array
                 ? sequence
                 : new CacheEnumerable<T>(sequence);
+        }
+
+        public static IList<T> AsIList<T>(this IEnumerable<T> sequence)
+        {
+            return sequence as IList<T> ?? sequence.ToList();
+        }
+        public static List<T> AsList<T>(this IEnumerable<T> sequence)
+        {
+            return sequence as List<T> ?? sequence.ToList();
+        }
+        public static T[] AsArray<T>(this IEnumerable<T> sequence)
+        {
+            return sequence as T[] ?? sequence.ToArray();
         }
     }
     internal class CacheEnumerable<T> : IEnumerable<T>
