@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using CacheEnumerable;
 
-namespace ConsoleApplication1
+namespace CacheEnumerable
 {
     internal static class Program
     {
